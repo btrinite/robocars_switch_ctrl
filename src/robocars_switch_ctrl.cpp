@@ -12,7 +12,7 @@
 #include <algorithm> 
 #include <cmath>
 
-#include <robocars_msgs/robocars_switch.h>
+#include <robocars_msgs/robocars_mark.h>
 #include <robocars_msgs/robocars_radio_channels.h>
 #include <robocars_msgs/robocars_brain_state.h>
 
@@ -152,12 +152,12 @@ FSM_INITIAL_STATE(RobocarsStateMachine, onIdle);
 
 u_int8_t channel2Lane (u_int32_t channelValue) {
     if ((channelValue)<600) {
-        return robocars_msgs::robocars_switch::SWITCH_LANE_0;
+        return robocars_msgs::robocars_mark::SWITCH_LANE_0;
     }
     if ((channelValue)>1500) {
-        return robocars_msgs::robocars_switch::SWITCH_LANE_2;
+        return robocars_msgs::robocars_mark::SWITCH_LANE_2;
     }
-    return robocars_msgs::robocars_switch::SWITCH_LANE_1;
+    return robocars_msgs::robocars_mark::SWITCH_LANE_1;
 }
 
 
@@ -185,7 +185,7 @@ void RosInterface::updateParam() {
 }
 
 void RosInterface::initPub () {
-    switch_pub = nh.advertise<robocars_msgs::robocars_switch>("/switch", 10);
+    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/mark", 10);
 }
 
 void RosInterface::initSub () {
@@ -218,12 +218,12 @@ void RosInterface::state_msg_cb(const robocars_msgs::robocars_brain_state::Const
 
 void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
 
-    robocars_msgs::robocars_switch switchMsg;
+    robocars_msgs::robocars_mark switchMsg;
 
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
     switchMsg.header.frame_id = "mainThrottling";
-    switchMsg.lane = channel2Lane(ch4_value);
+    switchMsg.mark = channel2Lane(ch4_value);
 
     switch_pub.publish(switchMsg);
 }
