@@ -151,10 +151,10 @@ class onAutonomousDriving
 FSM_INITIAL_STATE(RobocarsStateMachine, onIdle);
 
 u_int8_t channel2Lane (u_int32_t channelValue) {
-    if ((channelValue)<1400) {
+    if ((channelValue)<600) {
         return robocars_msgs::robocars_switch::SWITCH_LANE_0;
     }
-    if ((channelValue)>1600) {
+    if ((channelValue)>1550) {
         return robocars_msgs::robocars_switch::SWITCH_LANE_2;
     }
     return robocars_msgs::robocars_switch::SWITCH_LANE_1;
