@@ -223,7 +223,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
     switchMsg.header.frame_id = "mainThrottling";
-    switchMsg.lane = channel2Lane(ch2_value);
+    switchMsg.lane = channel2Lane(ch4_value);
 
     switch_pub.publish(switchMsg);
 }
