@@ -1,11 +1,18 @@
 /**
- * @file offb_raw_node.cpp
- * @brief Offboard control example node, written with MAVROS version 0.19.x, PX4 Pro Flight
- * Stack and tested in Gazebo SITL
- source $src_path/Tools/setup_gazebo.bash ${src_path} ${build_path}
-
- gzserver --verbose ${src_path}/Tools/sitl_gazebo/worlds/${model}.world &
+ * @file robocars_switch_ctrl.cpp
+ * @brief convert discret radio channel value to three level value, usefull to mark image manually while driving for example.
+ * 
+ * Topic subscribed : 
+ *  - /radio_channels
+ *  - /robocars_brain_state : not used today
+ * 
+ * Topic published :
+ *  - /mark : Mark (three state value)
+ * 
+ * Parameters :
+ *  - loop_hz : tick frequency, used by FSM to trigger recurrent jobs like uopdating node's configuration
  */
+
 #include <tinyfsm.hpp>
 #include <ros/ros.h>
 #include <stdio.h>
@@ -222,7 +229,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
 
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
-    switchMsg.header.frame_id = "mainThrottling";
+    switchMsg.header.frame_id = "mark";
     switchMsg.mark = channel2Lane(ch4_value);
 
     switch_pub.publish(switchMsg);
