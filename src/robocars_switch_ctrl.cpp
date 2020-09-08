@@ -221,7 +221,7 @@ void RosInterface::initSub () {
 }
 
 void RosInterface::channels_msg_cb(const robocars_msgs::robocars_radio_channels::ConstPtr& msg){    
-    send_event(RadioChannelEvent(msg->ch2,msg->ch4));
+    send_event(RadioChannelEvent(msg->channels[1],msg->channels[3]));
 }
 
 void RosInterface::state_msg_cb(const robocars_msgs::robocars_brain_state::ConstPtr& msg) {
