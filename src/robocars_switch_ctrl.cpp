@@ -177,14 +177,14 @@ class onAutonomousDriving
 
 FSM_INITIAL_STATE(RobocarsStateMachine, onIdle);
 
-u_int8_t channel2Lane (u_int32_t channelValue) {
+u_int8_t channel2Mark (u_int32_t channelValue) {
     if ((channelValue)<600) {
-        return robocars_msgs::robocars_mark::SWITCH_LANE_0;
+        return robocars_msgs::robocars_mark::SWITCH_MARK_0;
     }
     if ((channelValue)>1500) {
-        return robocars_msgs::robocars_mark::SWITCH_LANE_2;
+        return robocars_msgs::robocars_mark::SWITCH_MARK_2;
     }
-    return robocars_msgs::robocars_mark::SWITCH_LANE_1;
+    return robocars_msgs::robocars_mark::SWITCH_MARK_1;
 }
 
 
@@ -250,7 +250,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
     switchMsg.header.frame_id = "mark";
-    switchMsg.mark = channel2Lane(ch4_value);
+    switchMsg.mark = channel2Mark(ch4_value);
 
     switch_pub.publish(switchMsg);
 }
