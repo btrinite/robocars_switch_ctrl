@@ -212,7 +212,7 @@ void RosInterface::updateParam() {
 }
 
 void RosInterface::initPub () {
-    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/mark", 10);
+    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/mark", 1);
 }
 
 void RosInterface::initSub () {
