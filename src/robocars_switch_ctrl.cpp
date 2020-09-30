@@ -27,7 +27,7 @@
  *  - /robocars_brain_state : not used today
  * 
  * Topic published :
- *  - /mark : Mark (three state value)
+ *  - /annotation/mark : Mark (three state value)
  * 
  * Parameters :
  *  - loop_hz : tick frequency, used by FSM to trigger recurrent jobs like uopdating node's configuration
@@ -212,7 +212,7 @@ void RosInterface::updateParam() {
 }
 
 void RosInterface::initPub () {
-    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/mark", 1);
+    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/annotation/mark", 1);
 }
 
 void RosInterface::initSub () {
