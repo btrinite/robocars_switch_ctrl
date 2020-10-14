@@ -247,7 +247,7 @@ void RosInterface::state_msg_cb(const robocars_msgs::robocars_brain_state::Const
 
 void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
 
-    robocars_msgs::robocars_mark markMsg;
+    robocars_msgs::robocars_switch markMsg;
 
     markMsg.header.stamp = ros::Time::now();
     markMsg.header.seq=1;
@@ -259,7 +259,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
     robocars_msgs::robocars_mark switchMsg;
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
-    switchMsg.header.frame_id = "mark";
+    switchMsg.header.frame_id = "switch";
     switchMsg.switch = {};
     switchMsg.switch[3] = channel2Mark(ch4_value);
     switchMsg.switch[1] = channel2Mark(ch2_value);
