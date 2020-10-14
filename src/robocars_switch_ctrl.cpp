@@ -42,6 +42,7 @@
 #include <robocars_msgs/robocars_mark.h>
 #include <robocars_msgs/robocars_radio_channels.h>
 #include <robocars_msgs/robocars_brain_state.h>
+#include <robocars_msgs/robocars_switch.h>
 
 #include <robocars_switch_ctrl.hpp>
 
@@ -212,7 +213,8 @@ void RosInterface::updateParam() {
 }
 
 void RosInterface::initPub () {
-    switch_pub = nh.advertise<robocars_msgs::robocars_mark>("/annotation/mark", 1);
+    annotation_pub = nh.advertise<robocars_msgs::robocars_mark>("/annotation/mark", 1);
+    switch_pub = nh.advertise<robocars_msgs::robocars_switch>("/switch/state", 1);
 }
 
 void RosInterface::initSub () {
@@ -245,15 +247,25 @@ void RosInterface::state_msg_cb(const robocars_msgs::robocars_brain_state::Const
 
 void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
 
-    robocars_msgs::robocars_mark switchMsg;
+    robocars_msgs::robocars_mark markMsg;
 
+    markMsg.header.stamp = ros::Time::now();
+    markMsg.header.seq=1;
+    markMsg.header.frame_id = "mark";
+    markMsg.mark = channel2Mark(ch4_value);
+
+    annotation_pub.publish(markMsg);
+
+    robocars_msgs::robocars_mark switchMsg;
     switchMsg.header.stamp = ros::Time::now();
     switchMsg.header.seq=1;
     switchMsg.header.frame_id = "mark";
-    switchMsg.mark = channel2Mark(ch4_value);
-    switchMsg.mark2 = channel2Mark(ch2_value);
+    switchMsg.switch = {};
+    switchMsg.switch[3] = channel2Mark(ch4_value);
+    switchMsg.switch[1] = channel2Mark(ch2_value);
 
     switch_pub.publish(switchMsg);
+
 }
 
 

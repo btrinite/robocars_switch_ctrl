@@ -110,6 +110,7 @@ class RosInterface
         void state_msg_cb(const robocars_msgs::robocars_brain_state::ConstPtr& msg);
 
         ros::NodeHandle nh;
+        ros::Publisher annotation_pub;
         ros::Publisher switch_pub;
         ros::Subscriber channels_sub;
         ros::Subscriber state_sub;
