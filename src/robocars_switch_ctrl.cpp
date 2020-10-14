@@ -251,6 +251,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
     switchMsg.header.seq=1;
     switchMsg.header.frame_id = "mark";
     switchMsg.mark = channel2Mark(ch4_value);
+    switchMsg.mark2 = channel2Mark(ch2_value);
 
     switch_pub.publish(switchMsg);
 }
