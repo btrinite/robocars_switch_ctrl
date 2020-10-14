@@ -214,7 +214,7 @@ void RosInterface::updateParam() {
 
 void RosInterface::initPub () {
     annotation_pub = nh.advertise<robocars_msgs::robocars_mark>("/annotation/mark", 1);
-    switch_pub = nh.advertise<robocars_msgs::robocars_switch>("/switch/state", 1);
+    switch_pub = nh.advertise<robocars_msgs::robocars_switch>("/switch_ctrl/state", 1);
 }
 
 void RosInterface::initSub () {
