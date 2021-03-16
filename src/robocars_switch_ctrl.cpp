@@ -28,6 +28,7 @@
  * 
  * Topic published :
  *  - /annotation/mark : Mark (three state value)
+ *  - /annotation/linear : Linear mark 
  * 
  * Parameters :
  *  - loop_hz : tick frequency, used by FSM to trigger recurrent jobs like uopdating node's configuration
@@ -253,6 +254,7 @@ void RosInterface::publishSwitch (uint32_t ch2_value, uint32_t ch4_value) {
     markMsg.header.seq=1;
     markMsg.header.frame_id = "mark";
     markMsg.mark = channel2Mark(ch4_value);
+    markMsg.linear = ch4_value;
 
     annotation_pub.publish(markMsg);
 
