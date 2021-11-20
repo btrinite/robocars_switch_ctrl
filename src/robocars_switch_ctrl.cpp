@@ -40,6 +40,8 @@
 #include <algorithm> 
 #include <cmath>
 
+#include <std_msgs/Int16MultiArray.h>
+
 #include <robocars_msgs/robocars_mark.h>
 #include <robocars_msgs/robocars_radio_channels.h>
 #include <robocars_msgs/robocars_brain_state.h>
@@ -219,12 +221,12 @@ void RosInterface::initPub () {
 }
 
 void RosInterface::initSub () {
-    channels_sub = nh.subscribe<robocars_msgs::robocars_radio_channels>("/radio_channels", 1, &RosInterface::channels_msg_cb, this);
+    channels_sub = nh.subscribe<std_msgs::Int16MultiArray>("/radio_channels", 1, &RosInterface::channels_msg_cb, this);
     state_sub = nh.subscribe<robocars_msgs::robocars_brain_state>("/robocars_brain_state", 1, &RosInterface::state_msg_cb, this);
 }
 
-void RosInterface::channels_msg_cb(const robocars_msgs::robocars_radio_channels::ConstPtr& msg){    
-    send_event(RadioChannelEvent(msg->channels[1],msg->channels[3]));
+void RosInterface::channels_msg_cb(const std_msgs::Int16MultiArray::ConstPtr& msg){    
+    send_event(RadioChannelEvent(msg->data[1],msg->data[3]));
 }
 
 void RosInterface::state_msg_cb(const robocars_msgs::robocars_brain_state::ConstPtr& msg) {

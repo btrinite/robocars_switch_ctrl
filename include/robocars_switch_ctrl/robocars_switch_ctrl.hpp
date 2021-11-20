@@ -106,7 +106,7 @@ class RosInterface
 
     private:
 
-        void channels_msg_cb(const robocars_msgs::robocars_radio_channels::ConstPtr& msg);
+        void channels_msg_cb(const std_msgs::Int16MultiArray::ConstPtr& msg);
         void state_msg_cb(const robocars_msgs::robocars_brain_state::ConstPtr& msg);
 
         ros::NodeHandle nh;
